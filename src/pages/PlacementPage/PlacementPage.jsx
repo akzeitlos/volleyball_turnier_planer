@@ -29,7 +29,9 @@ export default function PlacementPage({
           <CardTitle className="text-base">Platzierungsphase</CardTitle>
           {placement ? (
             <Badge variant={openPlacementMatches ? "outline" : "secondary"}>
-              {openPlacementMatches ? `${openPlacementMatches} offen` : "komplett"}
+              {openPlacementMatches
+                ? `${openPlacementMatches} offen`
+                : "komplett"}
             </Badge>
           ) : (
             <Badge variant="outline">Plan</Badge>
@@ -39,24 +41,37 @@ export default function PlacementPage({
 
       <CardContent className="grid gap-6">
         {!groups.length ? (
-          <div className="text-sm text-slate-600">Noch keine Gruppen. Bitte im Setup „Gruppen erzeugen“.</div>
+          <div className="text-sm text-slate-600">
+            Noch keine Gruppen. Bitte im Setup „Gruppen erzeugen“.
+          </div>
         ) : placement ? (
           <>
             <div className="text-sm text-slate-600">{placement.note}</div>
 
             {placement.pools.map((pool) => {
-              const st = pool.teamIds.length >= 2 ? computeStandings(pool.teamIds, pool.matches || []) : [];
+              const st =
+                pool.teamIds.length >= 2
+                  ? computeStandings(pool.teamIds, pool.matches || [])
+                  : [];
               return (
                 <div key={pool.id} className="grid gap-3">
                   <div className="flex items-center justify-between">
                     <div className="font-semibold">{pool.label}</div>
-                    <Badge variant="secondary">{pool.teamIds.length} Teams</Badge>
+                    <Badge variant="secondary">
+                      {pool.teamIds.length} Teams
+                    </Badge>
                   </div>
 
                   {pool.teamIds.length >= 2 ? (
-                    <StandingsTable standings={st} teamsById={teamsById} />
+                    <StandingsTable
+                      standings={st}
+                      teamsById={teamsById}
+                      rankOffset={pool.placeStart - 1}
+                    />
                   ) : (
-                    <div className="text-sm text-slate-600">Nur ein Team – Platz wird automatisch gesetzt.</div>
+                    <div className="text-sm text-slate-600">
+                      Nur ein Team – Platz wird automatisch gesetzt.
+                    </div>
                   )}
 
                   <div className="grid gap-2">
@@ -68,13 +83,22 @@ export default function PlacementPage({
                         allowDraw={true}
                         disabled={false}
                         onChange={(updated) => {
-                          setPlacement((prev) => {
-                            const next =
-                              typeof structuredClone === "function" ? structuredClone(prev) : JSON.parse(JSON.stringify(prev));
-                            const p = next.pools.find((x) => x.id === pool.id);
-                            p.matches = (p.matches || []).map((x) => (x.id === updated.id ? updated : x));
-                            return next;
-                          });
+                          const base = placement; // kommt als Prop rein
+                          if (!base?.pools) return;
+
+                          const next =
+                            typeof structuredClone === "function"
+                              ? structuredClone(base)
+                              : JSON.parse(JSON.stringify(base));
+
+                          const p = next.pools.find((x) => x.id === pool.id);
+                          if (!p) return;
+
+                          p.matches = (p.matches || []).map((x) =>
+                            x.id === updated.id ? updated : x
+                          );
+
+                          setPlacement(next);
                         }}
                       />
                     ))}
@@ -86,39 +110,57 @@ export default function PlacementPage({
             })}
 
             <div className="flex flex-wrap items-center gap-2">
-              <Button onClick={onGoFinal} disabled={!allPlacementMatchesComplete}>
+              <Button
+                onClick={onGoFinal}
+                disabled={!allPlacementMatchesComplete}
+              >
                 Finale Tabelle anzeigen
               </Button>
               {!allPlacementMatchesComplete ? (
-                <span className="text-xs text-slate-600">(noch {openPlacementMatches} Platzierungsspiele offen)</span>
+                <span className="text-xs text-slate-600">
+                  (noch {openPlacementMatches} Platzierungsspiele offen)
+                </span>
               ) : null}
             </div>
           </>
         ) : (
           <>
             <div className="text-sm text-slate-600">
-              Hier siehst du den kompletten Modus bis zum Ende. Solange die Gruppenphase noch nicht fertig ist, stehen Platzhalter wie „1. Gruppe A“.
+              Hier siehst du den kompletten Modus bis zum Ende. Solange die
+              Gruppenphase noch nicht fertig ist, stehen Platzhalter wie „1.
+              Gruppe A“.
             </div>
 
             <div className="grid gap-5">
               {placementPlan.map((p) => (
-                <div key={p.id} className="rounded-2xl border p-3 grid gap-3">
+                <div key={p.id} className="rounded-lg border p-3 grid gap-3">
                   <div className="flex items-center justify-between">
                     <div className="font-semibold">{p.label}</div>
                     <Badge variant="secondary">{p.slots.length} Teams</Badge>
                   </div>
 
-                  <div className="text-sm text-slate-700">Teilnehmer: {p.slots.map((s) => s.label).join(" · ")}</div>
+                  <div className="text-sm text-slate-700">
+                    Teilnehmer: {p.slots.map((s) => s.label).join(" · ")}
+                  </div>
 
                   {p.slots.length >= 2 ? (
                     <div className="grid gap-2">
-                      <div className="text-xs text-slate-600">Konkrete Spielpaarungen (Vorschau):</div>
+                      <div className="text-xs text-slate-600">
+                        Konkrete Spielpaarungen (Vorschau):
+                      </div>
                       {p.matches.map((m) => (
-                        <div key={m.id} className="rounded-xl border px-3 py-2 text-sm flex items-center justify-between">
+                        <div
+                          key={m.id}
+                          className="rounded-md border px-3 py-2 text-sm flex items-center justify-between"
+                        >
                           <div className="min-w-0">
-                            <div className="text-[11px] text-slate-600">{m.label}</div>
+                            <div className="text-[11px] text-slate-600">
+                              {m.label}
+                            </div>
                             <div className="truncate font-medium">
-                              {m.aLabel} <span className="text-slate-600">vs</span> {m.bLabel}
+                              {m.aLabel}{" "}
+                              <span className="text-slate-600">vs</span>{" "}
+                              {m.bLabel}
                             </div>
                           </div>
                           <Badge variant="outline">offen</Badge>
@@ -126,18 +168,25 @@ export default function PlacementPage({
                       ))}
                     </div>
                   ) : (
-                    <div className="text-sm text-slate-600">Nur ein Slot – Platz wird automatisch vergeben.</div>
+                    <div className="text-sm text-slate-600">
+                      Nur ein Slot – Platz wird automatisch vergeben.
+                    </div>
                   )}
                 </div>
               ))}
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <Button onClick={onCreatePlacement} disabled={!allGroupMatchesComplete}>
+              <Button
+                onClick={onCreatePlacement}
+                disabled={!allGroupMatchesComplete}
+              >
                 Platzierungsspiele aktivieren
               </Button>
               {!allGroupMatchesComplete ? (
-                <span className="text-xs text-slate-600">(noch {openGroupMatches} Gruppenspiele offen)</span>
+                <span className="text-xs text-slate-600">
+                  (noch {openGroupMatches} Gruppenspiele offen)
+                </span>
               ) : null}
             </div>
           </>

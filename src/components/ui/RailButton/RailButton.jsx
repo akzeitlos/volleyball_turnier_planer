@@ -5,10 +5,10 @@ function RailButton({ title, active, disabled, onClick, children, badge }) {
       title={title}
       disabled={disabled}
       onClick={onClick}
-      className={`relative h-20 w-20 rounded-2xl flex items-center justify-center transition border ${
+      className={`relative h-20 w-20 rounded-lg flex items-center justify-center transition ${
         active
-          ? "bg-white text-black border-white"
-          : "bg-transparent text-white border-white/10 hover:bg-white/10"
+          ? "bg-white text-black "
+          : "bg-transparent text-white hover:bg-white/10"
       } ${disabled ? "opacity-40 cursor-not-allowed" : ""}`}
     >
       {children}

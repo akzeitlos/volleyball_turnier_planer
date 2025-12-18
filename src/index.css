@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@source inline("bg-white/80");
+@source inline("bg-white/95 bg-black/20 bg-black/30 rounded-lg shadow-md shadow-xl shadow-2xl font-bold font-extrabold");
 
 
 :root {
@@ -16,6 +16,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --blue: #003f72;
 }
 
 body {
@@ -40,4 +41,8 @@ a:hover {
   background-image: url("/src/assets/background.png");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.text-blue {
+  color:rgb(3, 45, 100);
 }

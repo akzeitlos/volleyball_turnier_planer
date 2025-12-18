@@ -41,7 +41,7 @@ export default function VolleyballTurnierTool() {
     state;
 
   return (
-    <div className="min-h-screen text-black">
+    <div className="min-h-screen bg-black/20 text-black">
       <SideRail
         step={step}
         setStep={actions.setStep}
@@ -55,8 +55,8 @@ export default function VolleyballTurnierTool() {
       <div className="pl-24">
         <div className="mx-auto max-w-5xl p-4 md:p-8 grid gap-4">
           <div className="grid gap-2">
-            <div className="text-2xl md:text-3xl font-semibold">
-              Volleyball Turnier Planer
+            <div className="text-2xl md:text-3xl font-extrabold text-white text-shadow-lg/30">
+              VOLLEYBALL TURNIER PLANER
             </div>
             <div className="text-sm text-slate-600">
             </div>

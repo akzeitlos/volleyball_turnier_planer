@@ -22,7 +22,7 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
     Number(match.pointsA) === Number(match.pointsB);
 
   return (
-    <div className={`rounded-2xl border p-3 grid gap-2 ${disabled ? "opacity-60" : ""}`}>
+    <div className={`rounded-lg border p-3 grid gap-2 ${disabled ? "opacity-60" : ""}`}>
       <div className="flex items-center justify-between gap-2">
         <div className="min-w-0">
           <div className="text-xs text-slate-600">{match.label ?? "Spiel"}</div>

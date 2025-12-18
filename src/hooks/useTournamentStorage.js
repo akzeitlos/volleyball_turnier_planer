@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { uid, clampInt } from "../lib/utils";
 import { STEPS } from "../lib/constants";
 
-const DEFAULT_STORAGE_KEY = "volley_turnier_planer_v1";
+const DEFAULT_STORAGE_KEY = "volleyball_turnier_planer";
 
 function makeDefaultState() {
   return {

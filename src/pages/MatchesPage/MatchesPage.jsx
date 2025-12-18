@@ -16,7 +16,6 @@ export default function MatchesPage({
   matchesByGroup,
   setMatchesByGroup,
   openGroupMatches,
-  RULES,
   allGroupMatchesComplete,
   onCreatePlacement,
 }) {
@@ -36,9 +35,6 @@ export default function MatchesPage({
           <div className="text-sm text-slate-600">Noch keine Gruppen. Bitte im Setup „Gruppen erzeugen“.</div>
         ) : (
           <>
-            <div className="text-sm text-slate-600">
-              Endstand nach {RULES.matchDurationMinutes} Minuten eintragen. Unentschieden ist erlaubt.
-            </div>
 
             {groups.map((g, gi) => {
               const ms = matchesByGroup[g.id] || [];
@@ -46,12 +42,12 @@ export default function MatchesPage({
               return (
                 <div key={g.id} className="grid gap-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-base font-semibold">Gruppe {g.name}</div>
+                    <div className="text-base font-semibold  text-(--blue)">Gruppe {g.name}</div>
                     <Badge variant="secondary">{ms.length} Spiele</Badge>
                   </div>
 
-                  <div className="rounded-2xl border p-3">
-                    <div className="font-semibold mb-2">Tabelle</div>
+                  <div className="rounded-lg border p-3">
+                    <div className="font-semibold mb-2 text-(--blue)">Tabelle</div>
                     <StandingsTable standings={st} teamsById={teamsById} />
                   </div>
 

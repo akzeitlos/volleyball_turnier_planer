@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StandingsTable({ standings, teamsById }) {
+export default function StandingsTable({ standings, teamsById, rankOffset = 0 }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -20,7 +20,7 @@ export default function StandingsTable({ standings, teamsById }) {
         <tbody>
           {standings.map((s) => (
             <tr key={s.teamId} className="border-b last:border-b-0">
-              <td className="py-2 pr-2 font-medium">{s.rank}</td>
+              <td className="py-2 pr-2 font-medium">{s.rank + rankOffset}</td>
               <td className="py-2 pr-2">{teamsById[s.teamId]?.name ?? s.teamId}</td>
               <td className="py-2 pr-2">{s.played}</td>
               <td className="py-2 pr-2">{s.wins}</td>
