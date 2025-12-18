@@ -76,6 +76,7 @@ export default function PlacementPage({
 
                   <div className="grid gap-2">
                     {(pool.matches || []).map((m) => (
+                      
                       <MatchRow
                         key={m.id}
                         match={m}

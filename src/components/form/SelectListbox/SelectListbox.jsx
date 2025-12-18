@@ -17,7 +17,7 @@ export default function SelectListbox({
           className={`
             relative w-full cursor-pointer rounded-md border
             bg-white px-3 py-2 pr-10 text-left
-            focus:outline-none focus:ring-2 focus:ring-(--blue)
+            focus:outline-none focus:ring-2 focus:ring-(--primary)
             ${buttonClassName}
           `}
         >
@@ -50,7 +50,7 @@ export default function SelectListbox({
               value={opt}
               className={({ active }) =>
                 `cursor-pointer px-3 py-2 ${
-                  active ? "bg-(--blue) text-white" : "text-slate-900"
+                  active ? "bg-(--primary) text-white" : "text-slate-900"
                 }`
               }
             >

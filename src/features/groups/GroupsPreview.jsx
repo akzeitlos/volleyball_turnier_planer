@@ -7,7 +7,7 @@ export default function GroupsPreview({ groups, teamsById }) {
       {groups.map((g) => (
         <div key={g.id} className="rounded-lg border p-3 grid gap-2">
           <div className="flex items-center justify-between">
-            <div className="font-semibold text-(--blue)">Gruppe {g.name}</div>
+            <div className="font-semibold text-(--primary)">Gruppe {g.name}</div>
             <Badge variant="secondary">{g.teamIds.length}</Badge>
           </div>
           <div className="grid gap-2">

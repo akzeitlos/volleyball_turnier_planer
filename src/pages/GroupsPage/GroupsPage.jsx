@@ -24,11 +24,11 @@ export default function GroupsPage({ groups, teamsById, standingsByGroup }) {
             <Separator />
 
             <div className="grid gap-3">
-              <div className="font-semibold text-(--blue)">Tabellen (live)</div>
+              <div className="font-semibold text-(--primary)">Tabellen (live)</div>
               {groups.map((g, idx) => (
                 <div key={g.id} className="rounded-lg border p-3 grid gap-2">
                   <div className="flex items-center justify-between">
-                    <div className="font-semibold text-(--blue)">Gruppe {g.name}</div>
+                    <div className="font-semibold text-(--primary)">Gruppe {g.name}</div>
                     <Badge variant="secondary">{g.teamIds.length}</Badge>
                   </div>
                   <StandingsTable standings={standingsByGroup[idx] || []} teamsById={teamsById} />
