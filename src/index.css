@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@source inline("bg-white/95 bg-black/20 bg-black/30 rounded-lg shadow-md shadow-xl shadow-2xl font-bold font-extrabold");
+@source inline("bg-white/95 bg-black/20 bg-black/30 rounded-lg shadow-md shadow-xl shadow-2xl font-bold font-extrabold bg-green");
 
 
 :root {
@@ -17,6 +17,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --blue: #003f72;
+  --green: #66b432;
 }
 
 body {
@@ -43,6 +44,6 @@ a:hover {
   background-size: cover;
 }
 
-.text-blue {
-  color:rgb(3, 45, 100);
+.bg-green {
+  background-color: var(--green)
 }

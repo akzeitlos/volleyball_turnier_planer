@@ -6,14 +6,25 @@ import Label from "../../components/form/Label/Label";
 import TrashIcon from "../../components/icons/TrashIcon";
 import { clampInt } from "../../lib/utils";
 
-export default function MatchRow({ match, teamsById, allowDraw, onChange, disabled }) {
-  const aName = match.a ? teamsById[match.a]?.name ?? match.a : match.aLabel ?? "—";
-  const bName = match.b ? teamsById[match.b]?.name ?? match.b : match.bLabel ?? "—";
+export default function MatchRow({
+  match,
+  teamsById,
+  allowDraw,
+  onChange,
+  disabled,
+}) {
+  const aName = match.a
+    ? teamsById[match.a]?.name ?? match.a
+    : match.aLabel ?? "—";
+  const bName = match.b
+    ? teamsById[match.b]?.name ?? match.b
+    : match.bLabel ?? "—";
 
   const draftA = match.pointsA ?? "";
   const draftB = match.pointsB ?? "";
 
-  const validNumber = (v) => v === "" || (Number.isFinite(Number(v)) && Number(v) >= 0);
+  const validNumber = (v) =>
+    v === "" || (Number.isFinite(Number(v)) && Number(v) >= 0);
   const drawInvalid =
     !allowDraw &&
     match.a &&
@@ -22,8 +33,15 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
     match.pointsB != null &&
     Number(match.pointsA) === Number(match.pointsB);
 
+  const isFinished = match.pointsA != null && match.pointsB != null;
   return (
-    <div className={`rounded-lg border p-3 grid gap-2 ${disabled ? "opacity-60" : ""}`}>
+    <div
+      className={`rounded-lg border p-3 grid gap-2 transition
+      ${disabled ? "opacity-60" : ""}
+      ${isFinished ? "bg-green" : "bg-white"}
+    `}
+    >
+      {" "}
       <div className="flex items-center justify-between gap-2">
         <div className="min-w-0">
           <div className="text-xs text-slate-600">{match.label ?? "Spiel"}</div>
@@ -32,10 +50,11 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
           </div>
         </div>
         <Badge variant={match.pointsA == null ? "outline" : "secondary"}>
-          {match.pointsA == null ? "offen" : `${match.pointsA}:${match.pointsB}`}
+          {match.pointsA == null
+            ? "offen"
+            : `${match.pointsA}:${match.pointsB}`}
         </Badge>
       </div>
-
       <div className="flex flex-wrap items-end gap-2">
         <div className="grid gap-1">
           <Label className="text-xs">Punkte {aName}</Label>
@@ -46,7 +65,10 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
             onChange={(e) => {
               const v = e.target.value;
               if (!validNumber(v)) return;
-              onChange({ ...match, pointsA: v === "" ? null : clampInt(v, 0, 999) });
+              onChange({
+                ...match,
+                pointsA: v === "" ? null : clampInt(v, 0, 999),
+              });
             }}
             className="w-28"
             placeholder="0"
@@ -62,7 +84,10 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
             onChange={(e) => {
               const v = e.target.value;
               if (!validNumber(v)) return;
-              onChange({ ...match, pointsB: v === "" ? null : clampInt(v, 0, 999) });
+              onChange({
+                ...match,
+                pointsB: v === "" ? null : clampInt(v, 0, 999),
+              });
             }}
             className="w-28"
             placeholder="0"
@@ -72,14 +97,19 @@ export default function MatchRow({ match, teamsById, allowDraw, onChange, disabl
         <Button
           variant="danger"
           className="ml-auto"
-          disabled={disabled || (match.pointsA == null && match.pointsB == null)}
+          disabled={
+            disabled || (match.pointsA == null && match.pointsB == null)
+          }
           onClick={() => onChange({ ...match, pointsA: null, pointsB: null })}
         >
-        <TrashIcon className="h-5 w-5" />
+          <TrashIcon className="h-5 w-5" />
         </Button>
       </div>
-
-      {drawInvalid ? <div className="text-xs text-red-700">Hier muss ein Sieger feststehen.</div> : null}
+      {drawInvalid ? (
+        <div className="text-xs text-red-700">
+          Hier muss ein Sieger feststehen.
+        </div>
+      ) : null}
     </div>
   );
 }
