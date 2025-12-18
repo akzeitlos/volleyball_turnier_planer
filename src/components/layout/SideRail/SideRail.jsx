@@ -29,7 +29,16 @@ export default function SideRail({
     : null;
 
   return (
-    <div className="fixed left-0 top-0 bottom-0 w-24 bg-slate-900 text-white border-r border-white/10 flex flex-col items-center gap-2 py-3 z-40">
+    <div
+      className="
+      fixed left-0 top-0 bottom-0 w-24
+      bg-slate-900 text-white
+      border-r border-white/10
+      flex flex-col items-center gap-2 py-3 z-40
+      hidden md:flex
+    "
+    >
+      {" "}
       <RailButton
         title="Setup"
         active={step === "setup"}
@@ -37,9 +46,7 @@ export default function SideRail({
       >
         <GearIcon className="h-10 w-10" />
       </RailButton>
-
       <div className="h-px w-14 bg-white/10 my-1" />
-
       <RailButton
         title="Gruppen"
         active={step === "groups"}
@@ -48,7 +55,6 @@ export default function SideRail({
       >
         <GroupsIcon className="h-10 w-10" />
       </RailButton>
-
       <RailButton
         title="Gruppenphase: Spiele"
         active={step === "matches"}
@@ -57,12 +63,9 @@ export default function SideRail({
       >
         <MatchesIcon className="h-10 w-10" />
       </RailButton>
-
       <RailButton
         title={
-          placement
-            ? "Platzierungsphase"
-            : "Platzierungsphase (Plan/Vorschau)"
+          placement ? "Platzierungsphase" : "Platzierungsphase (Plan/Vorschau)"
         }
         active={step === "placement"}
         onClick={() => setStep("placement")}
@@ -70,7 +73,6 @@ export default function SideRail({
       >
         <TrophyIcon className="h-10 w-10" />
       </RailButton>
-
       <RailButton
         title={
           allPlacementMatchesComplete
@@ -82,9 +84,7 @@ export default function SideRail({
       >
         <TableIcon className="h-10 w-10" />
       </RailButton>
-
       <div className="mt-auto" />
-
     </div>
   );
 }

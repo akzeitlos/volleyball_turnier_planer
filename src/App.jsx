@@ -1,7 +1,7 @@
 import React from "react";
 
 // Layout
-import SideRail from "./components/layout/SideRail/SideRail";
+import BottomRail from "./components/layout/BottomRail/BottomRail";
 import StepRenderer from "./components/layout/StepRenderer/StepRenderer";
 
 // Pages
@@ -42,7 +42,7 @@ export default function VolleyballTurnierTool() {
 
   return (
     <div className="min-h-screen bg-black/20 text-black">
-      <SideRail
+      <BottomRail
         step={step}
         setStep={actions.setStep}
         groups={groups}
@@ -52,7 +52,7 @@ export default function VolleyballTurnierTool() {
         allPlacementMatchesComplete={allPlacementMatchesComplete}
       />
 
-      <div className="pl-24">
+      <div className="pb-16">
         <div className="mx-auto max-w-5xl p-4 md:p-8 grid gap-4">
           <div className="grid gap-2">
             <div className="text-2xl md:text-3xl font-extrabold text-white text-shadow-lg/30">
